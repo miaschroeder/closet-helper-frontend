@@ -1,30 +1,18 @@
-import { React, useState, useEffect } from 'react';
+import { React, useState } from 'react';
 import { Card, List } from 'antd';
 import styles from './SuggestedTopsComponent.module.css';
 import CHBackend from '../../common/utils';
 
 
 const SuggestedTopsComponent = () => {
-    const [allTops, setAllTops] = useState();
+    const [allTops, setAllTops] = useState([]);
     const getAllTops = async () => {
+        // console.log('getting tops');
         const tops = await CHBackend.get('/api/v1/tops');
         console.log(tops);
+        setAllTops(tops.data.items);
     };
     getAllTops();
-    const data = [
-        {
-            title: 'Title 1',
-        },
-        {
-            title: 'Title 2',
-        },
-        {
-            title: 'Title 3',
-        },
-        {
-            title: 'Title 4'
-        },
-    ];
 
     return (
         <List
@@ -37,10 +25,10 @@ const SuggestedTopsComponent = () => {
                 xl: 6,
                 xxl: 3,
               }}
-            dataSource={data}
+            dataSource={allTops}
             renderItem={(item) => (
             <List.Item>
-                <Card title={item.title}>Card content</Card>
+                <Card title={item.name}>{item.style}</Card>
             </List.Item>
             )}
         />
