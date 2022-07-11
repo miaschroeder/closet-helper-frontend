@@ -1,8 +1,16 @@
-import React from 'react';
+import { React, useState, useEffect } from 'react';
 import { Card, List } from 'antd';
+import styles from './SuggestedTopsComponent.module.css';
+import CHBackend from '../../common/utils';
 
 
 const SuggestedTopsComponent = () => {
+    const [allTops, setAllTops] = useState();
+    const getAllTops = async () => {
+        const tops = await CHBackend.get('/api/v1/tops');
+        console.log(tops);
+    };
+    getAllTops();
     const data = [
         {
             title: 'Title 1',
