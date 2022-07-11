@@ -6,9 +6,8 @@ import SuggestedClothesComponent from './components/suggestedClothesComponent/Su
 const App = () => {
   return (
     <div className="App">
-    <Button type="primary">Button</Button>
-    <SuggestedClothesComponent />
-  </div>
+      <SuggestedClothesComponent />
+    </div>
   )
 };
 
