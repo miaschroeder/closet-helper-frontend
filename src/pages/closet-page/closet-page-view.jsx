@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import SuggestedClothes from '../../components/SuggestedClothes/SuggestedClothes';
 const { Content, Footer, Sider } = Layout;
 
-const HomePageView = () => {
+const ClosetPageView = () => {
     const [collapsed, setCollapsed] = useState(false);
     const menuItems = [
         {key: '1', label: 'Home', icon: <HomeOutlined />},
@@ -49,7 +49,7 @@ const HomePageView = () => {
                     minHeight: 360,
                     }}
                 >
-                    Home Page View
+                    Closet Page View.
                 </div>
                 <SuggestedClothes />
             </Content>
@@ -65,4 +65,4 @@ const HomePageView = () => {
     );
 };
 
-export default HomePageView;
+export default ClosetPageView;
