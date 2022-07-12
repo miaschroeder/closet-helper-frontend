@@ -1,16 +1,12 @@
 import { HomeOutlined, SkinOutlined,} from '@ant-design/icons';
 import { Layout, Menu } from 'antd';
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import SuggestedClothes from '../../components/SuggestedClothes/SuggestedClothes';
 const { Content, Footer, Sider } = Layout;
 
 const ClosetPageView = () => {
     const [collapsed, setCollapsed] = useState(false);
-    const menuItems = [
-        {key: '1', label: 'Home', icon: <HomeOutlined />},
-        {key: '2', label: 'Closet', icon: <SkinOutlined />},
-        ]
-
 
     return (
         <Layout
@@ -21,20 +17,17 @@ const ClosetPageView = () => {
         <Sider theme="light" collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
             <Menu
                 theme="light"
-                defaultSelectedKeys={['1']}
+                defaultSelectedKeys={['2']}
                 mode="inline"
-                items={menuItems}
-                // onClick={(key, item, domEvent, keyPath) => {
-                //     console.log({
-                //         key,
-                //         item,
-                //         domEvent,
-                //         keyPath
-                //     });
-
-                // }}
                 onClick={(info) => console.log(info)}
-            />
+            >
+                <Menu.Item key="1" icon={<HomeOutlined />}>
+                    <Link to={"/"}>Home</Link>
+                </Menu.Item>
+                <Menu.Item key="2" icon={<SkinOutlined />}>
+                    <Link to={"/closet"}>Closet</Link>
+                </Menu.Item>
+            </Menu>
         </Sider>
         <Layout className="site-layout">
             <Content
