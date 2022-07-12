@@ -1,18 +1,19 @@
 import { React, useState } from 'react';
+import { PropTypes } from 'prop-types';
 import { Card, List } from 'antd';
-import styles from './SuggestedOuterwearComponent.module.css';
+import styles from './SuggestedCategoryItems.module.css';
 import CHBackend from '../../common/utils';
 
 
-const SuggestedOuterwearComponent = () => {
-    const [allOuterwear, setAllOuterwear] = useState([]);
-    const getAllOuterwear = async () => {
-        // console.log('getting bottoms');
-        const outerwear = await CHBackend.get('/api/v1/outerwear');
+const SuggestedCategoryItems = ({ category }) => {
+    const [allItems, setAllItems] = useState([]);
+    const getAllItems = async () => {
+        // console.log('getting category items');
+        const items = await CHBackend.get(`/api/v1/${category}`);
         // console.log(tops);
-        setAllOuterwear(outerwear.data.items);
+        setAllItems(items.data.items);
     };
-    getAllOuterwear();
+    getAllItems();
 
     return (
         <List
@@ -25,7 +26,7 @@ const SuggestedOuterwearComponent = () => {
                 xl: 6,
                 xxl: 3,
               }}
-            dataSource={allOuterwear}
+            dataSource={allItems}
             renderItem={(item) => (
             <List.Item>
                 <Card title={item.name}>{item.style}</Card>
@@ -35,4 +36,8 @@ const SuggestedOuterwearComponent = () => {
     );
 }
 
-export default SuggestedOuterwearComponent;
+SuggestedCategoryItems.propTypes = {
+    category: PropTypes.string.isRequired
+};
+
+export default SuggestedCategoryItems;
