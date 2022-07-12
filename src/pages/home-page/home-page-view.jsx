@@ -3,10 +3,10 @@ import { Layout, Menu } from 'antd';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import SuggestedClothes from '../../components/SuggestedClothes/SuggestedClothes';
-const { Content, Footer, Sider } = Layout;
 
 const HomePageView = () => {
     const [collapsed, setCollapsed] = useState(false);
+    const { Content, Footer, Sider } = Layout;
 
     return (
         <Layout
@@ -35,15 +35,10 @@ const HomePageView = () => {
                 margin: '0 16px',
             }}
             >
-                <div
-                    className="site-layout-background"
-                    style={{
-                    padding: 24,
-                    minHeight: 360,
-                    }}
+                <h1
                 >
                     Home Page View
-                </div>
+                </h1>
                 <SuggestedClothes />
             </Content>
             <Footer
