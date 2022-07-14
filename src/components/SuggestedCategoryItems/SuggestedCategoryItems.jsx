@@ -1,4 +1,4 @@
-import { React, useState } from 'react';
+import { React, useState, useEffect } from 'react';
 import { PropTypes } from 'prop-types';
 import { Card, List } from 'antd';
 import styles from './SuggestedCategoryItems.module.css';
@@ -13,7 +13,10 @@ const SuggestedCategoryItems = ({ category }) => {
         // console.log(tops);
         setAllItems(items.data.items);
     };
-    getAllItems();
+
+    useEffect(() => {
+        getAllItems();
+    }, []);
 
     return (
         <List

@@ -1,30 +1,42 @@
-import { React, useState } from 'react';
+import { React, useState, useEffect } from 'react';
 import { PropTypes } from 'prop-types';
 import { Button, Modal, Form, Input, Radio, Switch } from 'antd';
-import styles from './CreateClothingItemModal.module.css';
+// import styles from './CreateClothingItemModal.module.css';
 import CHBackend from '../../common/utils';
 
-const CreateClothingItemModal = ({ isOpen, setIsOpen }) => {   
+const EditClothingItemModal = ({ isOpen, setIsOpen, clothingCategory, itemID }) => {
     const [itemName, setItemName] = useState(''); 
-    const [clothingCategory, setClothingCategory] = useState('')
     const [clothingStyle, setClothingStyle] = useState('')
     const [weatherCategory, setWeatherCategory] = useState('')
     const [favorite, setFavorite] = useState(false);
-    
+
     const [confirmLoading, setConfirmLoading] = useState(false);
 
-    const resetInputFields = () => {
-        setItemName('');
-        setClothingCategory('');
-        setClothingStyle('');
-        setWeatherCategory('');
-        setFavorite(false);
-        // console.log(itemName);
+    const getItemInfo = async () => {
+        // console.log(`api/v1/${clothingCategory}/${itemID}`);
+        try{
+            const res = await CHBackend.get(`/api/v1/${clothingCategory}/${itemID}`);
+            const item = res.data.item;
+            console.log(item);
+            console.log('before', itemName, clothingStyle, weatherCategory, favorite);
+            console.log(item.name);
+            setItemName(item.name);
+            setClothingStyle(item.style);
+            setWeatherCategory(item.weather);
+            setFavorite(item.favorite);
+            console.log('after', itemName, clothingStyle, weatherCategory, favorite);
+        } catch (err) {
+            console.log(err);
+        }
     }
-    
-    const handleCreate = async () => {
+
+    useEffect(() => {
+        getItemInfo();
+    }, [isOpen]);
+
+    const handleEdit = async () => {
         setConfirmLoading(true);
-        const item = await CHBackend.post(`api/v1/${clothingCategory}`, {
+        const item = await CHBackend.post(`api/v1/`, {
             name: itemName,
             style: clothingStyle,
             weather: weatherCategory,
@@ -32,15 +44,13 @@ const CreateClothingItemModal = ({ isOpen, setIsOpen }) => {
         });
         console.log(item);
         setConfirmLoading(false);
-        resetInputFields();
-        // setClothingCategory('bottoms');
         setIsOpen(false);
         console.log(itemName);
     };
 
     const handleCancel = () => {
         setIsOpen(false);
-        resetInputFields();
+        // resetInputFields();
     };
 
     const onFinishSuccess = (values) => {
@@ -50,30 +60,33 @@ const CreateClothingItemModal = ({ isOpen, setIsOpen }) => {
     const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
     };
-    
+
     return (
         <Modal
-            title="Create Clothing Item"
+            title="Edit Clothing Item"
             visible={isOpen}
-            onOk={handleCreate}
-            onCancel={handleCancel}
             footer={[
                 <Button
-                key="cancel"
-                type="default"
-                loading={false}
-                onClick={handleCancel}
+                    key="cancel"
+                    type="default"
+                    loading={false}
+                    onClick={handleCancel}
                 >Cancel</Button>,
+                <Button
+                    key="delete"
+                    type="default"
+                    danger
+                >Delete</Button>,
                 <Button
                     key="create"
                     type="primary"
                     loading={confirmLoading}
-                    onClick={handleCreate}
-                >Create</Button>
+                    onClick={handleEdit}
+                >Save</Button>
             ]}
         >
             <Form
-                name="createItem"
+                name="editItem"
                 onFinish={onFinishSuccess}
                 onFinishFailed={onFinishFailed}
             >
@@ -103,8 +116,9 @@ const CreateClothingItemModal = ({ isOpen, setIsOpen }) => {
                     ]}
                 >
                     <Radio.Group
-                        onChange={(e) => {setClothingCategory(e.target.value)}}
-                        value={clothingCategory}
+                        // onChange={(e) => {setClothingCategory(e.target.value)}}
+                        value={'tops'}
+                        disabled={true}
                         // defaultValue={"tops"}
                     >
                         <Radio value={"tops"}>Tops</Radio>
@@ -158,12 +172,15 @@ const CreateClothingItemModal = ({ isOpen, setIsOpen }) => {
                 </Form.Item>
             </Form>
         </Modal>
-    );
-};
+    )
 
-CreateClothingItemModal.propTypes = {
+}
+
+EditClothingItemModal.propTypes = {
     isOpen: PropTypes.bool,
     setIsOpen: PropTypes.func,
+    clothingCategory: PropTypes.string,
+    itemID: PropTypes.string,
 };
 
-export default CreateClothingItemModal;
+export default EditClothingItemModal;
