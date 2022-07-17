@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Layout, Menu, Tabs, Button } from 'antd';
+import { Layout, Menu } from 'antd';
 import { HomeOutlined, SkinOutlined,} from '@ant-design/icons';
-import ViewCategoryItems from '../../components/ViewCategoryItems/ViewCategoryItems';
+import ClosetClothes from '../../components/ClosetClothes/ClosetClothes';
 import CreateClothingItemModal from '../../components/CreateClothingItemModal/CreateClothingItemModal';
+import styles from './closet-page-view.module.css';
 
 const ClosetPageView = () => {
     const [collapsed, setCollapsed] = useState(false);
     const [createModalOpen, setCreateModalOpen] = useState(false);
-    const { TabPane } = Tabs;
-    const { Content, Footer, Sider } = Layout;
+    const { Content, Sider } = Layout;
 
     return (
         <Layout
@@ -17,7 +17,15 @@ const ClosetPageView = () => {
             minHeight: '100vh',
         }}
         >
-            <Sider theme="light" collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
+            <Sider
+                theme="light"
+                style={{
+                    backgroundColor: '#E4D3C8',
+                }}
+                collapsible
+                collapsed={collapsed}
+                onCollapse={(value) => setCollapsed(value)}
+            >
                 <Menu
                     theme="light"
                     defaultSelectedKeys={['2']}
@@ -34,38 +42,25 @@ const ClosetPageView = () => {
             </Sider>
             <Layout className="site-layout">
                 <Content
-                style={{
-                    margin: '0 16px',
-                }}
+                    style={{
+                        padding: '0 16px',
+                        backgroundColor: '#FBF6F1',
+                    }}
                 >
-                    <h1>
-                        Closet Page View.
-                    </h1>
-                    <div>Here you can view and edit all of your clothes!</div>
-                    <Button type="primary" onClick={() => setCreateModalOpen(true)}>Add New Clothing Item</Button>
+                    <div className={'header'}>
+                        <div>Here you can view and edit all of your clothes!</div>
+                        <button
+                            type="button"
+                            onClick={() => setCreateModalOpen(true)}
+                            className={styles['add-item-button']}
+                        >Add Item</button>
+                    </div>
                     <CreateClothingItemModal
                         isOpen={createModalOpen}
                         setIsOpen={setCreateModalOpen}
                      />
-                    <Tabs onChange={(key) => console.log(key)} type="card">
-                        <TabPane tab="Tops" key="1">
-                            <ViewCategoryItems category={"tops"} />
-                        </TabPane>
-                        <TabPane tab="Bottoms" key="2">
-                            <ViewCategoryItems category={"bottoms"} />
-                        </TabPane>
-                        <TabPane tab="Outerwear" key="3">
-                        <ViewCategoryItems category={"outerwear"} />
-                        </TabPane>
-                    </Tabs>
+                    <ClosetClothes />
                 </Content>
-                <Footer
-                style={{
-                    textAlign: 'center',
-                }}
-                >
-                Ant Design ©2018 Created by Ant UED
-                </Footer>
             </Layout>
         </Layout>
     );

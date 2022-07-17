@@ -73,7 +73,7 @@ const HomePageView = () => {
         }}
         >
             <Sider
-                theme="dark"
+                theme="light"
                 style={{
                     backgroundColor: '#E4D3C8',
                 }}
@@ -97,10 +97,10 @@ const HomePageView = () => {
             </Sider>
             <Layout className="site-layout">
                 <Content
-                style={{
-                    padding: '0 16px',
-                    backgroundColor: '#FBF6F1',
-                }}
+                    style={{
+                        padding: '0 16px',
+                        backgroundColor: '#FBF6F1',
+                    }}
                 >
                     {/* <h1
                     >

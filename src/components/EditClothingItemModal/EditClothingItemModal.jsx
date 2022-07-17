@@ -27,7 +27,7 @@ const EditClothingItemModal = ({ isOpen, setIsOpen, clothingCategory, itemID }) 
             setClothingStyle(itemStyle);
             setWeatherCategory(itemWeather);
             setFavorite(itemFavorite);
-            console.log(itemName, clothingStyle, weatherCategory, favorite);
+            console.log('item info', itemName, clothingStyle, weatherCategory, favorite);
         } catch (err) {
             console.log(err);
         }
@@ -46,12 +46,12 @@ const EditClothingItemModal = ({ isOpen, setIsOpen, clothingCategory, itemID }) 
                 weather: weatherCategory,
                 favorite
             });
-            console.log(item);
+            console.log('saved item', item);
             setConfirmLoading(false);
             setIsOpen(false);
-            console.log(itemName);
+            console.log('saved item name', itemName);
         } catch (err) {
-            console.log(err);
+            console.log('erro', err);
         }
     };
 

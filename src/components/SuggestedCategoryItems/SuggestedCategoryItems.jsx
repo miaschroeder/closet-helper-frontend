@@ -27,23 +27,6 @@ const SuggestedCategoryItems = ({ clothingCategory, weatherCategory }) => {
     }, []);
 
     return (
-        // <List
-        //     grid={{
-        //         gutter: 16,
-        //         xs: 1,
-        //         sm: 2,
-        //         md: 4,
-        //         lg: 4,
-        //         xl: 6,
-        //         xxl: 3,
-        //       }}
-        //     dataSource={allItems}
-        //     renderItem={(item) => (
-        //     <List.Item>
-        //         <Card title={item.name}>{item.style}</Card>
-        //     </List.Item>
-        //     )}
-        // />
         <div className={styles['category-container']}>
             { allItems ? (
                 allItems.map((item) => {
