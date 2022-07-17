@@ -5,13 +5,19 @@ import styles from './SuggestedCategoryItems.module.css';
 import CHBackend from '../../common/utils';
 
 
-const SuggestedCategoryItems = ({ category }) => {
+const SuggestedCategoryItems = ({ clothingCategory, weatherCategory }) => {
     const [allItems, setAllItems] = useState([]);
     const getAllItems = async () => {
         // console.log('getting category items');
-        const items = await CHBackend.get(`/api/v1/${category}`);
+        const items = await CHBackend.get(`/api/v1/${clothingCategory}`);
         // console.log(tops);
-        setAllItems(items.data.items);
+        const suggestedItems = items.data.items.filter(item => {
+            return item.weather === weatherCategory;
+        })
+        // setAllItems(items.data.items);
+        console.log(weatherCategory)
+        console.log(suggestedItems);
+        setAllItems(suggestedItems);
     };
 
     useEffect(() => {
@@ -40,7 +46,8 @@ const SuggestedCategoryItems = ({ category }) => {
 }
 
 SuggestedCategoryItems.propTypes = {
-    category: PropTypes.string.isRequired
+    clothingCategory: PropTypes.string.isRequired,
+    weatherCategory: PropTypes.string.isRequired,
 };
 
 export default SuggestedCategoryItems;

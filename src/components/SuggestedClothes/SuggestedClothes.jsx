@@ -1,22 +1,24 @@
 import React from 'react';
-// import { Card, List } from 'antd';
-// import SuggestedTopsComponent from '../SuggestedTops/SuggestedTopsComponent';
-// import SuggestedBottomsComponent from '../suggestedBottomsComponent/SuggestedBottomsComponent';
-// import SuggestedOuterwearComponent from '../SuggestedOuterwear/SuggestedOuterwearComponent';
+import { PropTypes } from 'prop-types';
 import SuggestedCategoryItems from '../SuggestedCategoryItems/SuggestedCategoryItems';
 
-const SuggestedClothes = () => {
+const SuggestedClothes = ({ weatherCategory }) => {
 
     return (
         <div>
+            <div>weather {weatherCategory}</div>
             <div>Suggested Tops</div>
-            <SuggestedCategoryItems category={'tops'} />
+            <SuggestedCategoryItems clothingCategory={'tops'} weatherCategory={weatherCategory} />
             <div>Suggested Bottoms</div>
-            <SuggestedCategoryItems category={'bottoms'} />
+            <SuggestedCategoryItems clothingCategory={'bottoms'} weatherCategory={weatherCategory} />
             <div>Suggested Outerwear</div>
-            <SuggestedCategoryItems category={'outerwear'} />
+            <SuggestedCategoryItems clothingCategory={'outerwear'} weatherCategory={weatherCategory} />
         </div>
     );
 }
+
+SuggestedClothes.propTypes ={
+    weatherCategory: PropTypes.string,
+};
 
 export default SuggestedClothes;
