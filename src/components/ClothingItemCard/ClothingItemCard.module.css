@@ -1,0 +1,36 @@
+
+.card-container {
+    background-color: #FDFBF9;
+    border: 1px solid black;
+    margin: 10px 10px;
+    width: 160px;
+    min-height: 100px;
+}
+
+.item-name {
+    padding: 10px;
+    min-height: 70px;
+}
+
+.details-container {
+    display: flex;
+    border-top: 1px solid black;
+}
+
+.category-container {
+    padding: 7px 10px;
+    border-right: 1px solid black;
+    width: 80px;
+}
+
+.edit-button, edit-button:hover, edit-button:focus{
+    border: none;
+    padding: 7px 30px;
+    width: 80px;
+    background-color: #FDFBF9;
+}
+
+.edit-button:hover {
+    cursor: pointer;
+    background-color: #EA9097;
+}

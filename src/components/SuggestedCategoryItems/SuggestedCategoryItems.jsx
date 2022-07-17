@@ -3,10 +3,12 @@ import { PropTypes } from 'prop-types';
 import { Card, List } from 'antd';
 import styles from './SuggestedCategoryItems.module.css';
 import CHBackend from '../../common/utils';
+import ClothingItemCard from '../ClothingItemCard/ClothingItemCard';
 
 
 const SuggestedCategoryItems = ({ clothingCategory, weatherCategory }) => {
-    const [allItems, setAllItems] = useState([]);
+    const [allItems, setAllItems] = useState();
+
     const getAllItems = async () => {
         // console.log('getting category items');
         const items = await CHBackend.get(`/api/v1/${clothingCategory}`);
@@ -25,23 +27,39 @@ const SuggestedCategoryItems = ({ clothingCategory, weatherCategory }) => {
     }, []);
 
     return (
-        <List
-            grid={{
-                gutter: 16,
-                xs: 1,
-                sm: 2,
-                md: 4,
-                lg: 4,
-                xl: 6,
-                xxl: 3,
-              }}
-            dataSource={allItems}
-            renderItem={(item) => (
-            <List.Item>
-                <Card title={item.name}>{item.style}</Card>
-            </List.Item>
-            )}
-        />
+        // <List
+        //     grid={{
+        //         gutter: 16,
+        //         xs: 1,
+        //         sm: 2,
+        //         md: 4,
+        //         lg: 4,
+        //         xl: 6,
+        //         xxl: 3,
+        //       }}
+        //     dataSource={allItems}
+        //     renderItem={(item) => (
+        //     <List.Item>
+        //         <Card title={item.name}>{item.style}</Card>
+        //     </List.Item>
+        //     )}
+        // />
+        <div className={styles['category-container']}>
+            { allItems ? (
+                allItems.map((item) => {
+                    return (
+                        <ClothingItemCard
+                            itemID={item._id}
+                            itemName={item.name}
+                            clothingCategory={clothingCategory}
+                            styleCategory={item.style}
+                            weatherCategory={item.weather}
+                            favorite={item.favorite}
+                        ></ClothingItemCard>
+                    )
+                })
+            ) : null }
+        </div>
     );
 }
 

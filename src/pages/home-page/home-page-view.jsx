@@ -4,6 +4,7 @@ import { React, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import SuggestedClothes from '../../components/SuggestedClothes/SuggestedClothes';
 // import WeatherForecast from '../../components/WeatherForecast/WeatherForecast';
+import styles from './home-page-view.module.css'
 
 const HomePageView = () => {
     const [collapsed, setCollapsed] = useState(false);
@@ -54,6 +55,16 @@ const HomePageView = () => {
         // setWeatherCat(categorizeTemp(avgTemp));
     }, []);
 
+    const WeatherForecast = () => {
+        return (
+            <div>
+                <div className={styles['avg-temp']}>{avgTemp}</div>
+                <div className={styles['high-low-temp']}>{lowTemp} | {highTemp}</div>
+                <div className={styles['weather-cond']}>{dayCond.toLowerCase()}</div>
+            </div>
+        )
+    }
+
 
     return (
         <Layout
@@ -61,50 +72,60 @@ const HomePageView = () => {
             minHeight: '100vh',
         }}
         >
-        <Sider theme="light" collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
-            <Menu
-                theme="light"
-                defaultSelectedKeys={['1']}
-                mode="inline"
-                onClick={(info) => console.log(info)}
+            <Sider
+                theme="dark"
+                style={{
+                    backgroundColor: '#E4D3C8',
+                }}
+                collapsible
+                collapsed={collapsed}
+                onCollapse={(value) => setCollapsed(value)}
             >
-                <Menu.Item key="1" icon={<HomeOutlined />}>
-                    <Link to={"/"}>Home</Link>
-                </Menu.Item>
-                <Menu.Item key="2" icon={<SkinOutlined />}>
-                    <Link to={"/closet"}>Closet</Link>
-                </Menu.Item>
-            </Menu>
-        </Sider>
-        <Layout className="site-layout">
-            <Content
-            style={{
-                margin: '0 16px',
-            }}
-            >
-                <h1
+                <Menu
+                    theme="light"
+                    defaultSelectedKeys={['1']}
+                    mode="inline"
+                    onClick={(info) => console.log(info)}
                 >
-                    Home Page View
-                </h1>
-                {avgTemp ? (
-                <div>
-                    <div>Average Temp {avgTemp}</div>
-                    <div>Conditions {dayCond}</div>
-                    <div>Daily Low {lowTemp}</div>
-                    <div>Daily High {highTemp}</div>
-                    <SuggestedClothes weatherCategory={weatherCat} />
-                </div>
-                ) : null}
-                {/* <SuggestedClothes weatherCategory={weatherCat} /> */}
-            </Content>
-            <Footer
-            style={{
-                textAlign: 'center',
-            }}
-            >
-            Ant Design ©2018 Created by Ant UED
-            </Footer>
-        </Layout>
+                    <Menu.Item key="1" icon={<HomeOutlined />}>
+                        <Link to={"/"}>Home</Link>
+                    </Menu.Item>
+                    <Menu.Item key="2" icon={<SkinOutlined />}>
+                        <Link to={"/closet"}>Closet</Link>
+                    </Menu.Item>
+                </Menu>
+            </Sider>
+            <Layout className="site-layout">
+                <Content
+                style={{
+                    padding: '0 16px',
+                    backgroundColor: '#FBF6F1',
+                }}
+                >
+                    {/* <h1
+                    >
+                        Home Page View
+                    </h1> */}
+                    {avgTemp ? (
+                        <div>
+                            <div className={styles['day-details']}>
+                                <div className={styles['welcome-msg']}>Hi Mia, it's a great day, check out these clothes!</div>
+                                <div className={styles['weather']}>
+                                    <WeatherForecast />
+                                </div>
+                            </div>
+                            <SuggestedClothes weatherCategory={weatherCat} />
+                        </div>) : null}
+                    {/* <SuggestedClothes weatherCategory={weatherCat} /> */}
+                </Content>
+                {/* <Footer
+                style={{
+                    textAlign: 'center',
+                }}
+                >
+                Ant Design ©2018 Created by Ant UED
+                </Footer> */}
+            </Layout>
         </Layout>
     );
 };

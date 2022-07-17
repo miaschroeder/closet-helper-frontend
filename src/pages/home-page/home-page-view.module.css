@@ -1,0 +1,31 @@
+
+.day-details {
+    display: flex;
+    border: 1px solid red;
+    margin: 20px 20px;
+}
+
+.welcome-msg {
+    font-size: 20px;
+    padding: 20px 0;
+    flex-grow: 4;
+    border: 1px solid #000000;
+}
+
+.weather {
+    flex-grow: 1;
+    border: 1px solid #000000;
+}
+
+.avg-temp {
+    font-size: 30px;
+    margin-left: 30%;
+}
+
+.high-low-temp {
+    margin-left: 30%;
+}
+
+.weather-cond {
+    margin-left: 25%;
+}

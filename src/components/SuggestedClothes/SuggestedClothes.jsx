@@ -1,17 +1,17 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
 import SuggestedCategoryItems from '../SuggestedCategoryItems/SuggestedCategoryItems';
+import styles from './SuggestedClothes.module.css'
 
 const SuggestedClothes = ({ weatherCategory }) => {
 
     return (
-        <div>
-            <div>weather {weatherCategory}</div>
-            <div>Suggested Tops</div>
+        <div className={styles['suggested-clothes-container']}>
+            <div className={styles['category-label']}>Tops</div>
             <SuggestedCategoryItems clothingCategory={'tops'} weatherCategory={weatherCategory} />
-            <div>Suggested Bottoms</div>
+            <div className={styles['category-label']}>Bottoms</div>
             <SuggestedCategoryItems clothingCategory={'bottoms'} weatherCategory={weatherCategory} />
-            <div>Suggested Outerwear</div>
+            <div className={styles['category-label']}>Outerwear</div>
             <SuggestedCategoryItems clothingCategory={'outerwear'} weatherCategory={weatherCategory} />
         </div>
     );
