@@ -75,7 +75,7 @@ const HomePageView = () => {
             <Sider
                 theme="light"
                 style={{
-                    backgroundColor: '#E4D3C8',
+                    backgroundColor: 'white',
                 }}
                 collapsible
                 collapsed={collapsed}
@@ -99,13 +99,9 @@ const HomePageView = () => {
                 <Content
                     style={{
                         padding: '0 16px',
-                        backgroundColor: '#FBF6F1',
+                        backgroundColor: '#f5f3f4',
                     }}
                 >
-                    {/* <h1
-                    >
-                        Home Page View
-                    </h1> */}
                     {avgTemp ? (
                         <div>
                             <div className={styles['day-details']}>
@@ -116,15 +112,7 @@ const HomePageView = () => {
                             </div>
                             <SuggestedClothes weatherCategory={weatherCat} />
                         </div>) : null}
-                    {/* <SuggestedClothes weatherCategory={weatherCat} /> */}
                 </Content>
-                {/* <Footer
-                style={{
-                    textAlign: 'center',
-                }}
-                >
-                Ant Design ©2018 Created by Ant UED
-                </Footer> */}
             </Layout>
         </Layout>
     );

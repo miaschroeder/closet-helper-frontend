@@ -1,0 +1,49 @@
+.modal {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    width: 500px;
+    background-color: #fff;
+}
+
+.modal-header, .modal-footer {
+    padding: 10px;
+    display: flex;
+    height: 50px;
+}
+
+.modal-title {
+    margin: 0;
+}
+
+.modal-body {
+    padding: 10px;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+}
+
+.cancel-button, .save-button {
+    border: 1px solid black;
+    padding: 3px 15px;
+}
+
+.cancel-button {
+    background-color: #FDFAF7;
+    position: fixed;
+    right: 195px;
+}
+
+.save-button {
+    background-color: #EA9097;
+    position: fixed;
+    right: 115px;
+}

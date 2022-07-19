@@ -5,10 +5,12 @@ import { HomeOutlined, SkinOutlined,} from '@ant-design/icons';
 import ClosetClothes from '../../components/ClosetClothes/ClosetClothes';
 import CreateClothingItemModal from '../../components/CreateClothingItemModal/CreateClothingItemModal';
 import styles from './closet-page-view.module.css';
+import CustomModal from '../../components/CustomModal/CustomModal';
 
 const ClosetPageView = () => {
     const [collapsed, setCollapsed] = useState(false);
     const [createModalOpen, setCreateModalOpen] = useState(false);
+    const [customModalOpen, setCustomModalOpen] = useState(false)
     const { Content, Sider } = Layout;
 
     return (
@@ -54,11 +56,21 @@ const ClosetPageView = () => {
                             onClick={() => setCreateModalOpen(true)}
                             className={styles['add-item-button']}
                         >Add Item</button>
+                        <button
+                            type="button"
+                            onClick={() => {
+                                console.log('open custom')
+                                setCustomModalOpen(true);
+                            }}
+                            className={styles['add-item-button']}
+                        >Custom Modal</button>
                     </div>
                     <CreateClothingItemModal
                         isOpen={createModalOpen}
                         setIsOpen={setCreateModalOpen}
                      />
+                    { customModalOpen ? <CustomModal setIsOpen={setCustomModalOpen} /> : null}
+                    {/* // <CustomModal /> */}
                     <ClosetClothes />
                 </Content>
             </Layout>
