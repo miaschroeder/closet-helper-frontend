@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Layout, Menu } from 'antd';
+import { Layout, Menu, Tabs, Button } from 'antd';
 import { HomeOutlined, SkinOutlined,} from '@ant-design/icons';
-import ClosetClothes from '../../components/ClosetClothes/ClosetClothes';
+// import ClosetClothes from '../../components/ClosetClothes/ClosetClothes';
+import ViewCategoryItems from '../../components/ViewCategoryItems/ViewCategoryItems';
 import CreateClothingItemModal from '../../components/CreateClothingItemModal/CreateClothingItemModal';
 import styles from './closet-page-view.module.css';
 import CustomModal from '../../components/CustomModal/CustomModal';
@@ -13,6 +14,8 @@ const ClosetPageView = () => {
     const [customModalOpen, setCustomModalOpen] = useState(false)
     const { Content, Sider } = Layout;
 
+    const { TabPane } = Tabs;
+
     return (
         <Layout
         style={{
@@ -22,7 +25,7 @@ const ClosetPageView = () => {
             <Sider
                 theme="light"
                 style={{
-                    backgroundColor: '#E4D3C8',
+                    backgroundColor: 'white',
                 }}
                 collapsible
                 collapsed={collapsed}
@@ -46,32 +49,47 @@ const ClosetPageView = () => {
                 <Content
                     style={{
                         padding: '0 16px',
-                        backgroundColor: '#FBF6F1',
+                        backgroundColor: '#f5f3f4',
                     }}
                 >
                     <div className={'header'}>
                         <div>Here you can view and edit all of your clothes!</div>
-                        <button
+                        <Button
+                            type="primary"
+                            onClick={() => setCreateModalOpen(true)}
+                        >Add Item</Button>
+                        {/* <button
                             type="button"
                             onClick={() => setCreateModalOpen(true)}
                             className={styles['add-item-button']}
-                        >Add Item</button>
-                        <button
+                        >Add Item</button> */}
+                        {/* <button
                             type="button"
                             onClick={() => {
                                 console.log('open custom')
                                 setCustomModalOpen(true);
                             }}
                             className={styles['add-item-button']}
-                        >Custom Modal</button>
+                        >Custom Modal</button> */}
                     </div>
                     <CreateClothingItemModal
                         isOpen={createModalOpen}
                         setIsOpen={setCreateModalOpen}
                      />
-                    { customModalOpen ? <CustomModal setIsOpen={setCustomModalOpen} /> : null}
+                    {/* { customModalOpen ? <CustomModal setIsOpen={setCustomModalOpen} /> : null} */}
                     {/* // <CustomModal /> */}
-                    <ClosetClothes />
+                    {/* <ClosetClothes /> */}
+                    <Tabs onChange={(key) => console.log(key)} type="card">
+                        <TabPane tab="Tops" key="1">
+                            <ViewCategoryItems category={"tops"} />
+                        </TabPane>
+                        <TabPane tab="Bottoms" key="2">
+                            <ViewCategoryItems category={"bottoms"} />
+                        </TabPane>
+                        <TabPane tab="Outerwear" key="3">
+                        <ViewCategoryItems category={"outerwear"} />
+                        </TabPane>
+                    </Tabs>
                 </Content>
             </Layout>
         </Layout>

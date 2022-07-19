@@ -57,9 +57,9 @@ const CreateClothingItemModal = ({ isOpen, setIsOpen }) => {
             visible={isOpen}
             onOk={handleCreate}
             onCancel={handleCancel}
-            style={{
-                backgroundColor: '#FBF6F1',
-            }}
+            // style={{
+            //     backgroundColor: 'white',
+            // }}
             footer={[
                 <Button
                 key="cancel"
