@@ -1,5 +1,5 @@
 import { HomeOutlined, SkinOutlined,} from '@ant-design/icons';
-import { Layout, Menu } from 'antd';
+import { Layout, Menu, Card, Row, Col } from 'antd';
 import { React, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import SuggestedClothes from '../../components/SuggestedClothes/SuggestedClothes';
@@ -104,12 +104,14 @@ const HomePageView = () => {
                 >
                     {avgTemp ? (
                         <div>
-                            <div className={styles['day-details']}>
-                                <div className={styles['welcome-msg']}>Hi Mia, it's a great day, check out these clothes!</div>
-                                <div className={styles['weather']}>
-                                    <WeatherForecast />
+                            <Card className={styles['day-details']}>
+                                <div className={styles['text-container']}>
+                                    <div className={styles['welcome-msg']}>Hi Mia, it's a great day, check out these clothes!</div>
+                                    <div className={styles['weather']}>
+                                        <WeatherForecast />
+                                    </div>
                                 </div>
-                            </div>
+                            </Card>
                             <SuggestedClothes weatherCategory={weatherCat} />
                         </div>) : null}
                 </Content>
