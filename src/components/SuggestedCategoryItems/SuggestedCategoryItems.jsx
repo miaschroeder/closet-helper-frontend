@@ -6,8 +6,9 @@ import CHBackend from '../../common/utils';
 import ClothingItemCard from '../ClothingItemCard/ClothingItemCard';
 
 
-const SuggestedCategoryItems = ({ clothingCategory, weatherCategory }) => {
+const SuggestedCategoryItems = ({ clothingCategory, weatherCategory, styleFilter }) => {
     const [allItems, setAllItems] = useState();
+    const [displayItems, setDisplayItems] = useState();
     const [closetUpdated, setClosetUpdated] = useState(0);
 
     const getAllItems = async () => {
@@ -21,16 +22,35 @@ const SuggestedCategoryItems = ({ clothingCategory, weatherCategory }) => {
         console.log(weatherCategory)
         console.log(suggestedItems);
         setAllItems(suggestedItems);
+        setDisplayItems(suggestedItems);
     };
 
     useEffect(() => {
         getAllItems();
     }, [closetUpdated]);
 
+    useEffect(() => {
+        if (!allItems && !styleFilter) {
+            console.log('no items or no filter')
+            return;
+        } else if (styleFilter == null) {
+            console.log('no style filter');
+            console.log(allItems);
+            setDisplayItems(allItems);
+        }  else {
+            console.log('filter')
+            const filteredItems = allItems.filter((item) => {
+                return item.style === styleFilter.toLowerCase();
+            });
+            console.log(filteredItems);
+            setDisplayItems(filteredItems);
+        }
+    }, [styleFilter]);
+
     return (
         <div className={styles['category-container']}>
-            { allItems ? (
-                allItems.map((item) => {
+            { displayItems ? (
+                displayItems.map((item) => {
                     return (
                         <ClothingItemCard
                             itemID={item._id}

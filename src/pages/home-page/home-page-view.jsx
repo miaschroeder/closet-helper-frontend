@@ -1,5 +1,5 @@
-import { HomeOutlined, SkinOutlined,} from '@ant-design/icons';
-import { Layout, Menu, Card, Row, Col } from 'antd';
+import { HomeOutlined, SkinOutlined, DownOutlined } from '@ant-design/icons';
+import { Layout, Menu, Card, Dropdown, Button, Space } from 'antd';
 import { React, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import SuggestedClothes from '../../components/SuggestedClothes/SuggestedClothes';
@@ -16,6 +16,8 @@ const HomePageView = () => {
     const [dayCond, setDayCond] = useState(null);
     const [lowTemp, setLowTemp] = useState(null);
     const [highTemp, setHighTemp] = useState(null);
+
+    const [filter, setFilter] = useState(null);
     
     const categorizeTemp = (temp) => {
         console.log('categorizing temp', temp)
@@ -65,6 +67,47 @@ const HomePageView = () => {
         )
     }
 
+    const FilterMenu = (
+        <Menu>
+            <Menu.Item key="1">
+                <div
+                    // type="text"
+                    onClick={() => {
+                        console.log('Casual');
+                        setFilter('Casual');
+                    }}
+                >Casual</div>
+            </Menu.Item>
+            <Menu.Item key="2">
+                <div
+                    // type="text"
+                    onClick={() => {
+                        console.log('Business');
+                        setFilter('Business');
+                    }}
+                >Business</div>
+            </Menu.Item>
+            <Menu.Item key="3">
+                <div
+                    // type="text"
+                    onClick={() => {
+                        console.log('Active');
+                        setFilter('Active');
+                    }}
+                >Active</div>
+            </Menu.Item>
+            <Menu.Item key="4">
+                <div
+                    // type="text"
+                    onClick={() => {
+                        console.log('Null filter');
+                        setFilter(null);
+                    }}
+                    className={styles['none-filter-text']}
+                >None</div>
+            </Menu.Item>
+        </Menu>
+    )
 
     return (
         <Layout
@@ -111,8 +154,16 @@ const HomePageView = () => {
                                         <WeatherForecast />
                                     </div>
                                 </div>
+                                <Dropdown overlay={FilterMenu} trigger={['click']}>
+                                    <a onClick={e => e.preventDefault()}>
+                                        <Space>
+                                            { filter ? <span>Filter by: {filter}</span> : <span>Filter by</span>}
+                                            <DownOutlined />
+                                        </Space>
+                                    </a>
+                                </Dropdown>
                             </Card>
-                            <SuggestedClothes weatherCategory={weatherCat} />
+                            <SuggestedClothes weatherCategory={weatherCat} styleFilter={filter} />
                         </div>) : null}
                 </Content>
             </Layout>
