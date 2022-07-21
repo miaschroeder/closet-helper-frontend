@@ -11,9 +11,10 @@ import CustomModal from '../../components/CustomModal/CustomModal';
 const ClosetPageView = () => {
     const [collapsed, setCollapsed] = useState(false);
     const [createModalOpen, setCreateModalOpen] = useState(false);
-    const [customModalOpen, setCustomModalOpen] = useState(false)
-    const { Content, Sider } = Layout;
+    const [customModalOpen, setCustomModalOpen] = useState(false);
+    const [closetUpdated, setClosetUpdated] = useState(0);
 
+    const { Content, Sider } = Layout;
     const { TabPane } = Tabs;
 
     return (
@@ -75,19 +76,21 @@ const ClosetPageView = () => {
                     <CreateClothingItemModal
                         isOpen={createModalOpen}
                         setIsOpen={setCreateModalOpen}
+                        closetUpdated={closetUpdated}
+                        setClosetUpdated={setClosetUpdated}
                      />
                     {/* { customModalOpen ? <CustomModal setIsOpen={setCustomModalOpen} /> : null} */}
                     {/* // <CustomModal /> */}
                     {/* <ClosetClothes /> */}
                     <Tabs onChange={(key) => console.log(key)} type="card">
                         <TabPane tab="Tops" key="1">
-                            <ViewCategoryItems category={"tops"} />
+                            <ViewCategoryItems category={"tops"} closetUpdated={closetUpdated} setClosetUpdated={setClosetUpdated} />
                         </TabPane>
                         <TabPane tab="Bottoms" key="2">
-                            <ViewCategoryItems category={"bottoms"} />
+                            <ViewCategoryItems category={"bottoms"} closetUpdated={closetUpdated} setClosetUpdated={setClosetUpdated} />
                         </TabPane>
                         <TabPane tab="Outerwear" key="3">
-                        <ViewCategoryItems category={"outerwear"} />
+                        <ViewCategoryItems category={"outerwear"} closetUpdated={closetUpdated} setClosetUpdated={setClosetUpdated} />
                         </TabPane>
                     </Tabs>
                 </Content>

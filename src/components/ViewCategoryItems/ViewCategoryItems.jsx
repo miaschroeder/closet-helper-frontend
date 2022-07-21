@@ -8,13 +8,13 @@ import CHBackend from '../../common/utils';
 import ClothingItemCard from '../ClothingItemCard/ClothingItemCard';
 
 
-const ViewCategoryItems = ({ category }) => {
+const ViewCategoryItems = ({ category, closetUpdated, setClosetUpdated }) => {
     // const [editModalOpen, setEditModalOpen] = useState(false);
     // const [itemID, setItemID] = useState('');
 
     const [allItems, setAllItems] = useState();
     const getAllItems = async () => {
-        // console.log('getting category items');
+        console.log('getting category items', category);
         // console.log(`/api/v1/${category}`);
         try {
             const res = await CHBackend.get(`/api/v1/${category}`);
@@ -29,7 +29,7 @@ const ViewCategoryItems = ({ category }) => {
 
     useEffect(() => {
         getAllItems();
-    }, [category]);
+    }, [category, closetUpdated]);
 
     return (
         <div className={styles['category-container']}>
@@ -43,6 +43,8 @@ const ViewCategoryItems = ({ category }) => {
                             styleCategory={item.style}
                             weatherCategory={item.weather}
                             favorite={item.favorite}
+                            closetUpdated={closetUpdated}
+                            setClosetUpdated={setClosetUpdated}
                         ></ClothingItemCard>
                     )
                 })
@@ -52,7 +54,9 @@ const ViewCategoryItems = ({ category }) => {
 }
 
 ViewCategoryItems.propTypes = {
-    category: PropTypes.string.isRequired
+    category: PropTypes.string.isRequired,
+    closetUpdated: PropTypes.number.isRequired,
+    setClosetUpdated: PropTypes.func.isRequired,
 };
 
 export default ViewCategoryItems;

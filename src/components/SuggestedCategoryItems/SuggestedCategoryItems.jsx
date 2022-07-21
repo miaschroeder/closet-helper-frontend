@@ -8,6 +8,7 @@ import ClothingItemCard from '../ClothingItemCard/ClothingItemCard';
 
 const SuggestedCategoryItems = ({ clothingCategory, weatherCategory }) => {
     const [allItems, setAllItems] = useState();
+    const [closetUpdated, setClosetUpdated] = useState(0);
 
     const getAllItems = async () => {
         // console.log('getting category items');
@@ -24,7 +25,7 @@ const SuggestedCategoryItems = ({ clothingCategory, weatherCategory }) => {
 
     useEffect(() => {
         getAllItems();
-    }, []);
+    }, [closetUpdated]);
 
     return (
         <div className={styles['category-container']}>
@@ -38,6 +39,8 @@ const SuggestedCategoryItems = ({ clothingCategory, weatherCategory }) => {
                             styleCategory={item.style}
                             weatherCategory={item.weather}
                             favorite={item.favorite}
+                            closetUpdated={closetUpdated}
+                            setClosetUpdated={setClosetUpdated}
                         ></ClothingItemCard>
                     )
                 })

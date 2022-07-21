@@ -5,7 +5,7 @@ import { Button, Modal, Form, Input, Radio, Switch } from 'antd';
 // import styles from './CreateClothingItemModal.module.css';
 import CHBackend from '../../common/utils';
 
-const EditClothingItemModal = ({ isOpen, setIsOpen, clothingCategory, itemID }) => {
+const EditClothingItemModal = ({ isOpen, setIsOpen, clothingCategory, itemID, closetUpdated, setClosetUpdated }) => {
     const [itemName, setItemName] = useState(null);
     const [editingName] = useState(null);
     const [clothingStyle, setClothingStyle] = useState(null)
@@ -48,6 +48,7 @@ const EditClothingItemModal = ({ isOpen, setIsOpen, clothingCategory, itemID }) 
             });
             console.log('saved item', item);
             setConfirmLoading(false);
+            setClosetUpdated(closetUpdated + 1)
             setIsOpen(false);
             console.log('saved item name', itemName);
         } catch (err) {

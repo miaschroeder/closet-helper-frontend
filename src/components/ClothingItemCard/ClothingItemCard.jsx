@@ -11,7 +11,8 @@ const ClothingItemCard = ({
     clothingCategory,
     styleCategory,
     weatherCategory,
-    favorite
+    favorite,
+    closetUpdated, setClosetUpdated,
 }) => {
     const [editModalOpen, setEditModalOpen] = useState(false);
     // const [itemID, setItemID] = useState('');
@@ -67,6 +68,8 @@ const ClothingItemCard = ({
                 setIsOpen={setEditModalOpen}
                 clothingCategory={clothingCategory}
                 itemID={itemID}
+                closetUpdated={closetUpdated}
+                setClosetUpdated={setClosetUpdated}
             />
         </div>
     );
@@ -79,6 +82,8 @@ ClothingItemCard.propTypes = {
     styleCategory: PropTypes.string,
     weatherCategory: PropTypes.string,
     favorite: PropTypes.bool,
+    closetUpdated: PropTypes.number,
+    setClothingCategory: PropTypes.func,
 };
 
 export default ClothingItemCard;

@@ -4,7 +4,7 @@ import { Button, Modal, Form, Input, Radio, Switch } from 'antd';
 import styles from './CreateClothingItemModal.module.css';
 import CHBackend from '../../common/utils';
 
-const CreateClothingItemModal = ({ isOpen, setIsOpen }) => {   
+const CreateClothingItemModal = ({ isOpen, setIsOpen, closetUpdated, setClosetUpdated }) => {   
     const [itemName, setItemName] = useState(''); 
     const [clothingCategory, setClothingCategory] = useState('')
     const [clothingStyle, setClothingStyle] = useState('')
@@ -34,6 +34,7 @@ const CreateClothingItemModal = ({ isOpen, setIsOpen }) => {
         setConfirmLoading(false);
         resetInputFields();
         // setClothingCategory('bottoms');
+        setClosetUpdated(closetUpdated + 1);
         setIsOpen(false);
         console.log(itemName);
     };
@@ -167,6 +168,8 @@ const CreateClothingItemModal = ({ isOpen, setIsOpen }) => {
 CreateClothingItemModal.propTypes = {
     isOpen: PropTypes.bool,
     setIsOpen: PropTypes.func,
+    closetUpdated: PropTypes.number,
+    setClosetUpdated: PropTypes.func,
 };
 
 export default CreateClothingItemModal;
