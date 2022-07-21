@@ -24,6 +24,7 @@ const CreateClothingItemModal = ({ isOpen, setIsOpen, closetUpdated, setClosetUp
     
     const handleCreate = async () => {
         setConfirmLoading(true);
+        console.log('creating item at', `api/v1/${clothingCategory}`);
         const item = await CHBackend.post(`api/v1/${clothingCategory}`, {
             name: itemName,
             style: clothingStyle,
@@ -32,7 +33,7 @@ const CreateClothingItemModal = ({ isOpen, setIsOpen, closetUpdated, setClosetUp
         });
         console.log(item);
         setConfirmLoading(false);
-        resetInputFields();
+        // resetInputFields();
         // setClothingCategory('bottoms');
         setClosetUpdated(closetUpdated + 1);
         setIsOpen(false);

@@ -6,9 +6,10 @@ import CHBackend from '../../common/utils';
 import ClothingItemCard from '../ClothingItemCard/ClothingItemCard';
 
 
-const SuggestedCategoryItems = ({ clothingCategory, weatherCategory, styleFilter }) => {
+const SuggestedCategoryItems = ({ clothingCategory, weatherCategory, styleFilter, sorted }) => {
     const [allItems, setAllItems] = useState();
     const [displayItems, setDisplayItems] = useState();
+    const [unsortedDisplayItems, setUnsortedDisplayItems] = useState();
     const [closetUpdated, setClosetUpdated] = useState(0);
 
     const getAllItems = async () => {
@@ -46,6 +47,30 @@ const SuggestedCategoryItems = ({ clothingCategory, weatherCategory, styleFilter
             setDisplayItems(filteredItems);
         }
     }, [styleFilter]);
+
+    useEffect(() => {
+        if (!displayItems) {
+            return;
+        }
+
+        if (sorted) {
+            console.log('sorting items');
+            const sortedItems = [...displayItems].sort((item1, item2) => {
+                if (item1.favorite && !item2.favorite) {
+                    return -1;
+                } else if (!item1.favorite && item2.favorite) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            });
+            setUnsortedDisplayItems(displayItems);
+            setDisplayItems(sortedItems);
+        } else {
+            console.log('unsorting items');
+            setDisplayItems(unsortedDisplayItems);
+        }
+    }, [sorted]);
 
     return (
         <div className={styles['category-container']}>

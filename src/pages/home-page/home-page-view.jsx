@@ -18,6 +18,7 @@ const HomePageView = () => {
     const [highTemp, setHighTemp] = useState(null);
 
     const [filter, setFilter] = useState(null);
+    const [sorted, setSorted] = useState(false);
     
     const categorizeTemp = (temp) => {
         console.log('categorizing temp', temp)
@@ -71,7 +72,6 @@ const HomePageView = () => {
         <Menu>
             <Menu.Item key="1">
                 <div
-                    // type="text"
                     onClick={() => {
                         console.log('Casual');
                         setFilter('Casual');
@@ -80,7 +80,6 @@ const HomePageView = () => {
             </Menu.Item>
             <Menu.Item key="2">
                 <div
-                    // type="text"
                     onClick={() => {
                         console.log('Business');
                         setFilter('Business');
@@ -89,7 +88,6 @@ const HomePageView = () => {
             </Menu.Item>
             <Menu.Item key="3">
                 <div
-                    // type="text"
                     onClick={() => {
                         console.log('Active');
                         setFilter('Active');
@@ -98,10 +96,31 @@ const HomePageView = () => {
             </Menu.Item>
             <Menu.Item key="4">
                 <div
-                    // type="text"
                     onClick={() => {
                         console.log('Null filter');
                         setFilter(null);
+                    }}
+                    className={styles['none-filter-text']}
+                >None</div>
+            </Menu.Item>
+        </Menu>
+    );
+
+    const SortMenu = (
+        <Menu>
+            <Menu.Item key="1">
+                <div
+                    onClick={() => {
+                        console.log('sorted');
+                        setSorted(true);
+                    }}
+                >Favorites</div>
+            </Menu.Item>
+            <Menu.Item key="2">
+                <div
+                    onClick={() => {
+                        console.log('unsorted');
+                        setSorted(false);
                     }}
                     className={styles['none-filter-text']}
                 >None</div>
@@ -162,8 +181,16 @@ const HomePageView = () => {
                                         </Space>
                                     </a>
                                 </Dropdown>
+                                <Dropdown overlay={SortMenu} trigger={['click']}>
+                                    <a onClick={e => e.preventDefault()}>
+                                        <Space>
+                                            { sorted ? <span>Sort by: Favorites</span> : <span>Sort by</span>}
+                                            <DownOutlined />
+                                        </Space>
+                                    </a>
+                                </Dropdown>
                             </Card>
-                            <SuggestedClothes weatherCategory={weatherCat} styleFilter={filter} />
+                            <SuggestedClothes weatherCategory={weatherCat} styleFilter={filter} sorted={sorted} />
                         </div>) : null}
                 </Content>
             </Layout>
