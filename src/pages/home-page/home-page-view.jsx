@@ -8,7 +8,7 @@ import styles from './home-page-view.module.css'
 
 const HomePageView = () => {
     const [collapsed, setCollapsed] = useState(false);
-    const { Content, Footer, Sider } = Layout;
+    const { Content, Sider } = Layout;
 
     const [avgTemp, setAvgTemp] = useState(null);
     const [weatherCat, setWeatherCat] = useState(null);
@@ -173,21 +173,21 @@ const HomePageView = () => {
                                         <WeatherForecast />
                                     </div>
                                 </div>
-                                <Dropdown overlay={FilterMenu} trigger={['click']}>
-                                    <a onClick={e => e.preventDefault()}>
+                                <Dropdown overlay={FilterMenu} trigger={['click']} className={styles['filter-dropdown']}>
+                                    <Button>
                                         <Space>
                                             { filter ? <span>Filter by: {filter}</span> : <span>Filter by</span>}
                                             <DownOutlined />
                                         </Space>
-                                    </a>
+                                    </Button>
                                 </Dropdown>
-                                <Dropdown overlay={SortMenu} trigger={['click']}>
-                                    <a onClick={e => e.preventDefault()}>
+                                <Dropdown overlay={SortMenu} trigger={['click']} className={styles['sort-dropdown']}>
+                                    <Button>
                                         <Space>
                                             { sorted ? <span>Sort by: Favorites</span> : <span>Sort by</span>}
                                             <DownOutlined />
                                         </Space>
-                                    </a>
+                                    </Button>
                                 </Dropdown>
                             </Card>
                             <SuggestedClothes weatherCategory={weatherCat} styleFilter={filter} sorted={sorted} />

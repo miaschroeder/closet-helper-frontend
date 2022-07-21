@@ -3,4 +3,10 @@
 
 .category-container {
     display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+}
+
+.item-card {
+    flex: 0 0 auto;
 }

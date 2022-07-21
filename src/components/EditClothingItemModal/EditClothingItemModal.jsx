@@ -1,7 +1,7 @@
 import { React, useState, useEffect } from 'react';
 import { PropTypes } from 'prop-types';
 import debounce from 'lodash.debounce'
-import { Button, Modal, Form, Input, Radio, Switch } from 'antd';
+import { Button, Modal, Form, Input, Radio, Switch, message } from 'antd';
 // import styles from './CreateClothingItemModal.module.css';
 import CHBackend from '../../common/utils';
 
@@ -50,9 +50,12 @@ const EditClothingItemModal = ({ isOpen, setIsOpen, clothingCategory, itemID, cl
             setConfirmLoading(false);
             setClosetUpdated(closetUpdated + 1)
             setIsOpen(false);
+            message.success('Item edited successfully.');
             console.log('saved item name', itemName);
         } catch (err) {
-            console.log('erro', err);
+            console.log('error', err);
+            setIsOpen(false);
+            message.error('Item edit failed.');
         }
     };
 

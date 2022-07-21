@@ -1,6 +1,6 @@
 import { React, useState } from 'react';
 import { PropTypes } from 'prop-types';
-import { Button, Modal, Form, Input, Radio, Switch } from 'antd';
+import { Button, Modal, Form, Input, Radio, Switch, message } from 'antd';
 import styles from './CreateClothingItemModal.module.css';
 import CHBackend from '../../common/utils';
 
@@ -23,21 +23,28 @@ const CreateClothingItemModal = ({ isOpen, setIsOpen, closetUpdated, setClosetUp
     }
     
     const handleCreate = async () => {
-        setConfirmLoading(true);
-        console.log('creating item at', `api/v1/${clothingCategory}`);
-        const item = await CHBackend.post(`api/v1/${clothingCategory}`, {
-            name: itemName,
-            style: clothingStyle,
-            weather: weatherCategory,
-            favorite
-        });
-        console.log(item);
-        setConfirmLoading(false);
-        // resetInputFields();
-        // setClothingCategory('bottoms');
-        setClosetUpdated(closetUpdated + 1);
-        setIsOpen(false);
-        console.log(itemName);
+        try {
+            setConfirmLoading(true);
+            console.log('creating item at', `api/v1/${clothingCategory}`);
+            const item = await CHBackend.post(`api/v1/${clothingCategory}`, {
+                name: itemName,
+                style: clothingStyle,
+                weather: weatherCategory,
+                favorite
+            });
+            console.log(item);
+            setConfirmLoading(false);
+            // resetInputFields();
+            // setClothingCategory('bottoms');
+            setClosetUpdated(closetUpdated + 1);
+            setIsOpen(false);
+            message.success('Item created successfully.')
+            console.log(itemName);
+        } catch (err) {
+            setIsOpen(false);
+            message.error('Item creation failed.')
+            console.log(err);
+        }
     };
 
     const handleCancel = () => {

@@ -17,7 +17,7 @@ const ViewCategoryItems = ({ category, closetUpdated, setClosetUpdated }) => {
         console.log('getting category items', category);
         // console.log(`/api/v1/${category}`);
         try {
-            const res = await CHBackend.get(`/api/v1/${category}`);
+            const res = await CHBackend.get(`/api/v1/${category}/none/false`);
             // console.log(res);
             const clothingItems = res.data.items;
             console.log(clothingItems);

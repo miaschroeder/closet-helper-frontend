@@ -38,3 +38,7 @@
 .none-filter-text {
     color: #c1c1c0;
 }
+
+.filter-dropdown, .sort-dropdown {
+    margin-left: 20px;
+}
