@@ -18,39 +18,15 @@ const ClothingItemCard = ({
     // const [itemID, setItemID] = useState('');
 
     return (
-        // <div className={styles['card-container']}>
-        //     <div className={styles['item-name']}>{itemName}</div>
-        //     <div className={styles['details-container']}>
-        //         <div className={styles['category-container']}><i>{styleCategory}</i></div>
-        //         <button
-        //             type="button"
-        //             onClick={() => {
-        //                 setEditModalOpen(true);
-        //             }}
-        //             className={styles['edit-button']}
-        //         >
-        //             <EditOutlined />
-        //         </button>
-        //     </div>
-        //     <EditClothingItemModal
-        //     isOpen={editModalOpen}
-        //     setIsOpen={setEditModalOpen}
-        //     clothingCategory={clothingCategory}
-        //     itemID={itemID}
-        // />
-        // </div>
         <div>
 
             <Card
-                // title={<div className={styles['title']}>{itemName}</div>}
                 className={styles['card-container']}
                 size="small"
                 actions={[
                     <div>
                         {favorite ? <HeartFilled /> : <HeartOutlined />}
                     </div>,
-                    // <HeartOutlined />,
-                    // <EditOutlined />
                     <Button
                         icon={<EditOutlined />}
                         onClick={() => {

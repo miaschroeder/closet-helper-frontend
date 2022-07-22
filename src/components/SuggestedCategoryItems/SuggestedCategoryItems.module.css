@@ -10,3 +10,8 @@
 .item-card {
     flex: 0 0 auto;
 }
+
+.empty-container {
+    float: left;
+    width: 10%;
+}

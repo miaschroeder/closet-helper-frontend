@@ -1,6 +1,6 @@
 import { React, useState, useEffect } from 'react';
 import { PropTypes } from 'prop-types';
-import { Card, List } from 'antd';
+import { Card, List, Empty } from 'antd';
 import { ShoppingOutlined } from '@ant-design/icons';
 import styles from './SuggestedCategoryItems.module.css';
 import CHBackend from '../../common/utils';
@@ -32,7 +32,7 @@ const SuggestedCategoryItems = ({ clothingCategory, weatherCategory, styleFilter
 
     return (
         <div className={styles['category-container']}>
-            { allItems ? 
+            { allItems && allItems.length > 0 ? 
                 allItems.map((item) => {
                     return (
                         <div className={styles['item-card']}>
@@ -48,25 +48,11 @@ const SuggestedCategoryItems = ({ clothingCategory, weatherCategory, styleFilter
                             ></ClothingItemCard>
                         </div>
                     )
-                }) : null }
-                {/* // (
-                //     <List
-                //         itemLayout="vertical"
-                //         dataSource={displayItems}
-                //         renderItem={item => (
-                //             <ClothingItemCard
-                //                 itemID={item._id}
-                //                 itemName={item.name}
-                //                 clothingCategory={clothingCategory}
-                //                 styleCategory={item.style}
-                //                 weatherCategory={item.weather}
-                //                 favorite={item.favorite}
-                //                 closetUpdated={closetUpdated}
-                //                 setClosetUpdated={setClosetUpdated}
-                //             ></ClothingItemCard>
-                //         )}
-                //     />
-                // ) : null } */}
+                }) : (
+                    <div className={styles['empty-container']}>
+                        <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+                    </div>
+                ) }
         </div>
     );
 }

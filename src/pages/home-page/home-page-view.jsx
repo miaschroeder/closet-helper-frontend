@@ -61,8 +61,8 @@ const HomePageView = () => {
     const WeatherForecast = () => {
         return (
             <div>
-                <div className={styles['avg-temp']}>{avgTemp}</div>
-                <div className={styles['high-low-temp']}>{lowTemp} | {highTemp}</div>
+                <div className={styles['avg-temp']}>{avgTemp}°</div>
+                <div className={styles['high-low-temp']}>{lowTemp}° | {highTemp}°</div>
                 <div className={styles['weather-cond']}>{dayCond.toLowerCase()}</div>
             </div>
         )
@@ -148,7 +148,7 @@ const HomePageView = () => {
                     defaultSelectedKeys={['1']}
                     mode="inline"
                     onClick={(info) => console.log(info)}
-                >
+                >   
                     <Menu.Item key="1" icon={<HomeOutlined />}>
                         <Link to={"/"}>Home</Link>
                     </Menu.Item>
@@ -167,28 +167,30 @@ const HomePageView = () => {
                     {avgTemp ? (
                         <div>
                             <Card className={styles['day-details']}>
-                                <div className={styles['text-container']}>
+                                <div className={styles['left-container']}>
                                     <div className={styles['welcome-msg']}>Hi Mia, it's a great day, check out these clothes!</div>
-                                    <div className={styles['weather']}>
-                                        <WeatherForecast />
+                                    <div className={styles['dropdown-container']}>
+                                        <Dropdown overlay={FilterMenu} trigger={['click']} className={styles['filter-dropdown']}>
+                                            <Button>
+                                                <Space>
+                                                    { filter ? <span>Filter by: {filter}</span> : <span>Filter by</span>}
+                                                    <DownOutlined />
+                                                </Space>
+                                            </Button>
+                                        </Dropdown>
+                                        <Dropdown overlay={SortMenu} trigger={['click']} className={styles['sort-dropdown']}>
+                                            <Button>
+                                                <Space>
+                                                    { sorted ? <span>Sort by: Favorites</span> : <span>Sort by</span>}
+                                                    <DownOutlined />
+                                                </Space>
+                                            </Button>
+                                        </Dropdown>
                                     </div>
                                 </div>
-                                <Dropdown overlay={FilterMenu} trigger={['click']} className={styles['filter-dropdown']}>
-                                    <Button>
-                                        <Space>
-                                            { filter ? <span>Filter by: {filter}</span> : <span>Filter by</span>}
-                                            <DownOutlined />
-                                        </Space>
-                                    </Button>
-                                </Dropdown>
-                                <Dropdown overlay={SortMenu} trigger={['click']} className={styles['sort-dropdown']}>
-                                    <Button>
-                                        <Space>
-                                            { sorted ? <span>Sort by: Favorites</span> : <span>Sort by</span>}
-                                            <DownOutlined />
-                                        </Space>
-                                    </Button>
-                                </Dropdown>
+                                <div className={styles['weather']}>
+                                    <WeatherForecast />
+                                </div>
                             </Card>
                             <SuggestedClothes weatherCategory={weatherCat} styleFilter={filter} sorted={sorted} />
                         </div>) : null}

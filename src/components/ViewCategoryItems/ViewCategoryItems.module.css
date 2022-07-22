@@ -3,8 +3,17 @@
 .category-container {
     display: flex;
     flex-wrap: wrap;
-    width: 1000px;
+    width: 95%;
+    /* padding: 25px; */
+    padding: 5px 0 20px 0;
+    /* margin: 20px; */
     /* border: 1px solid black; */
+    margin-left: 1%;
     /* background-color: #ECE0D8; */
     background-color: white;
+}
+
+.empty-container {
+    float: left;
+    width: 100%;
 }

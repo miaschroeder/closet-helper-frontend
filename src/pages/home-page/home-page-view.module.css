@@ -1,25 +1,29 @@
 
-.day-details {
-    /* display: flex; */
+.left-container {
     /* border: 1px solid red; */
+    display: block;
+    float: left;
+    width: 70%;
+    /* padding-bottom: 20px; */
+}
+
+.day-details {
     margin: 20px 20px;
     width: 96.75%;
+    height: 140px;
 }
 
 .welcome-msg {
     font-size: 20px;
-    padding: 20px 0;
-    /* flex-grow: 1; */
-    border: 1px solid #000000;
-    width: 50%;
-    float: left;
+    padding: 0px 0 20px 0;
+    /* border: 1px solid #000000; */
 }
 
 .weather {
-    /* flex-grow: 1; */
-    border: 1px solid #000000;
-    width: 50%;
+    /* border: 1px solid #000000; */
     float: left;
+    width: 30%;
+    margin-top: 0px;
 }
 
 .avg-temp {
@@ -28,11 +32,11 @@
 }
 
 .high-low-temp {
-    margin-left: 30%;
+    margin-left: 28%;
 }
 
 .weather-cond {
-    margin-left: 25%;
+    margin-left: 34%;
 }
 
 .none-filter-text {
@@ -40,5 +44,9 @@
 }
 
 .filter-dropdown, .sort-dropdown {
-    margin-left: 20px;
+    margin-left: 15px;
+}
+
+.dropdown-container {
+    /* border: 1px solid #000000; */
 }

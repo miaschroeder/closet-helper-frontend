@@ -1,6 +1,6 @@
 import { React, useState, useEffect } from 'react';
 import { PropTypes } from 'prop-types';
-// import { Card, List, Button } from 'antd';
+import { Card, List, Button, Empty } from 'antd';
 // import { EditOutlined } from '@ant-design/icons';
 import styles from './ViewCategoryItems.module.css';
 import CHBackend from '../../common/utils';
@@ -33,7 +33,7 @@ const ViewCategoryItems = ({ category, closetUpdated, setClosetUpdated }) => {
 
     return (
         <div className={styles['category-container']}>
-            { allItems ? (
+            { allItems && allItems.length > 0 ? (
                 allItems.map((item) => {
                     return (
                         <ClothingItemCard
@@ -48,7 +48,11 @@ const ViewCategoryItems = ({ category, closetUpdated, setClosetUpdated }) => {
                         ></ClothingItemCard>
                     )
                 })
-            ) : null }
+            ) : (
+                <div className={styles['empty-container']}>
+                    <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+                </div>
+            ) }
         </div>
     );
 }
