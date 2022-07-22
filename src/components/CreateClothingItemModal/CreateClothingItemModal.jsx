@@ -1,6 +1,6 @@
 import { React, useState } from 'react';
 import { PropTypes } from 'prop-types';
-import { Button, Modal, Form, Input, Radio, Switch, message } from 'antd';
+import { Button, Modal, Form, Input, Radio, Switch, message, Divider, Select } from 'antd';
 import styles from './CreateClothingItemModal.module.css';
 import CHBackend from '../../common/utils';
 
@@ -12,25 +12,27 @@ const CreateClothingItemModal = ({ isOpen, setIsOpen, closetUpdated, setClosetUp
     const [favorite, setFavorite] = useState(false);
     
     const [confirmLoading, setConfirmLoading] = useState(false);
+    const [form] = Form.useForm();
+    const { Option } = Select;
 
-    const resetInputFields = () => {
-        setItemName('');
-        setClothingCategory('');
-        setClothingStyle('');
-        setWeatherCategory('');
-        setFavorite(false);
-        // console.log(itemName);
-    }
+    // const resetInputFields = () => {
+    //     setItemName('');
+    //     setClothingCategory('');
+    //     setClothingStyle('');
+    //     setWeatherCategory('');
+    //     setFavorite(false);
+    //     // console.log(itemName);
+    // }
     
-    const handleCreate = async () => {
+    const handleCreate = async ( formValues ) => {
         try {
             setConfirmLoading(true);
-            console.log('creating item at', `api/v1/${clothingCategory}`);
-            const item = await CHBackend.post(`api/v1/${clothingCategory}`, {
-                name: itemName,
-                style: clothingStyle,
-                weather: weatherCategory,
-                favorite
+            console.log('creating item at', `api/v1/${formValues.collection}`);
+            const item = await CHBackend.post(`api/v1/${formValues.collection}`, {
+                name: formValues.name,
+                style: formValues.style,
+                weather: formValues.weather,
+                favorite: formValues.favorite === undefined ? false : formValues.favorite,
             });
             console.log(item);
             setConfirmLoading(false);
@@ -38,59 +40,68 @@ const CreateClothingItemModal = ({ isOpen, setIsOpen, closetUpdated, setClosetUp
             // setClothingCategory('bottoms');
             setClosetUpdated(closetUpdated + 1);
             setIsOpen(false);
-            message.success('Item created successfully.')
+            message.success(`Item "${formValues.name}" created successfully.`);
             console.log(itemName);
         } catch (err) {
             setIsOpen(false);
             message.error('Item creation failed.')
             console.log(err);
+        } finally {
+            form.resetFields();
+            setFavorite(false);
         }
     };
 
     const handleCancel = () => {
         setIsOpen(false);
-        resetInputFields();
+        form.resetFields();
+        setFavorite(false);
     };
 
-    const onFinishSuccess = (values) => {
-        console.log('Success:', values);
-      };
+    // const onFinishSuccess = async (itemValues) => {
+    //     console.log('Success:', values);
+    //   };
     
     const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
+        console.log('Failed:', errorInfo);
     };
     
     return (
         <Modal
             title="Create Clothing Item"
             visible={isOpen}
-            onOk={handleCreate}
-            onCancel={handleCancel}
+            closable={true}
+            maskClosable={true}
+            // onOk={handleCreate}
+            // onCancel={handleCancel}
             // style={{
             //     backgroundColor: 'white',
             // }}
-            footer={[
-                <Button
-                key="cancel"
-                type="default"
-                loading={false}
-                onClick={handleCancel}
-                >Cancel</Button>,
-                <Button
-                    key="create"
-                    type="primary"
-                    loading={confirmLoading}
-                    onClick={handleCreate}
-                >Create</Button>
-            ]}
+            // footer={[
+            //     <Button
+            //     key="cancel"
+            //     type="default"
+            //     loading={false}
+            //     onClick={handleCancel}
+            //     >Cancel</Button>,
+            //     <Button
+            //         key="create"
+            //         type="primary"
+            //         htmlType="submit"
+            //         loading={confirmLoading}
+            //         onClick={handleCreate}
+            //     >Create</Button>,
+            // ]}
+            footer={null}
         >
             <Form
                 name="createItem"
-                onFinish={onFinishSuccess}
+                form={form}
+                onFinish={handleCreate}
                 onFinishFailed={onFinishFailed}
             >
                 <Form.Item
-                    label="Item Name"
+                    label="Name"
                     name="name"
                     rules={[
                         {
@@ -102,10 +113,11 @@ const CreateClothingItemModal = ({ isOpen, setIsOpen, closetUpdated, setClosetUp
                     <Input
                         value={itemName}
                         onChange={(e) => setItemName(e.target.value)}
+                        placeholder="What should we call this item?"
                     />
                 </Form.Item>
                 <Form.Item
-                    label="Clothing Category"
+                    label="Category"
                     name="collection"
                     rules={[
                         {
@@ -114,7 +126,7 @@ const CreateClothingItemModal = ({ isOpen, setIsOpen, closetUpdated, setClosetUp
                         }
                     ]}
                 >
-                    <Radio.Group
+                    {/* <Radio.Group
                         onChange={(e) => {setClothingCategory(e.target.value)}}
                         value={clothingCategory}
                         // defaultValue={"tops"}
@@ -122,10 +134,15 @@ const CreateClothingItemModal = ({ isOpen, setIsOpen, closetUpdated, setClosetUp
                         <Radio value={"tops"}>Tops</Radio>
                         <Radio value={"bottoms"}>Bottoms</Radio>
                         <Radio value={"outerwear"}>Outerwear</Radio>
-                    </Radio.Group>
+                    </Radio.Group> */}
+                    <Select placeholder="Where should this go in your closet?">
+                        <Option value="tops">Tops</Option>
+                        <Option value="bottoms">Bottoms</Option>
+                        <Option value="outerwear">Outerwear</Option>
+                    </Select>
                 </Form.Item>
                 <Form.Item
-                    label="Clothing Style"
+                    label="Style"
                     name="style"
                     rules={[
                         {
@@ -134,18 +151,24 @@ const CreateClothingItemModal = ({ isOpen, setIsOpen, closetUpdated, setClosetUp
                         }
                     ]}
                 >
-                    <Radio.Group
+                    {/* <Radio.Group
                         onChange={(e) => {setClothingStyle(e.target.value)}}
                         value={clothingStyle}
+                        className={styles['style-radio-group']}
                         // defaultValue={"casual"}
                     >
                         <Radio value={"casual"}>Casual</Radio>
                         <Radio value={"business"}>Business</Radio>
                         <Radio value={"active"}>Active</Radio>
-                    </Radio.Group>
+                    </Radio.Group> */}
+                    <Select placeholder="What kind of adventures is this item made for?">
+                        <Option value="casual">Casual</Option>
+                        <Option value="business">Business</Option>
+                        <Option value="active">Active</Option>
+                    </Select>
                 </Form.Item>
                 <Form.Item
-                    label="Weather Category"
+                    label="Weather"
                     name="weather"
                     rules={[
                         {
@@ -168,6 +191,15 @@ const CreateClothingItemModal = ({ isOpen, setIsOpen, closetUpdated, setClosetUp
                 <Form.Item label="Favorite" name="favorite">
                     <Switch checked={favorite} onChange={(e) => setFavorite(e)}/>
                 </Form.Item>
+                <Divider />
+                <div className={styles['modal-footer']}>
+                    <Form.Item className={styles['form-item-cancel']}>
+                        <Button type="default" onClick={() => {handleCancel()}}>Cancel</Button>
+                    </Form.Item>
+                    <Form.Item className={styles['form-item-create']}>
+                        <Button type="primary" htmlType="submit">Create</Button>
+                    </Form.Item>
+                </div>
             </Form>
         </Modal>
     );

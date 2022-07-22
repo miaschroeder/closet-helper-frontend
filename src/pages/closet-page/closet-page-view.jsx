@@ -58,7 +58,7 @@ const ClosetPageView = () => {
                         <Button
                             type="primary"
                             onClick={() => setCreateModalOpen(true)}
-                        >Add Item</Button>
+                        >Create Item</Button>
                         {/* <button
                             type="button"
                             onClick={() => setCreateModalOpen(true)}
