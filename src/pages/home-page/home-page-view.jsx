@@ -168,7 +168,7 @@ const HomePageView = () => {
                         <div>
                             <Card className={styles['day-details']}>
                                 <div className={styles['left-container']}>
-                                    <div className={styles['welcome-msg']}>Hi Mia, it's a great day, check out these clothes!</div>
+                                    <div className={styles['welcome-msg']}>Hi {process.env.REACT_APP_USERNAME}, it's a great day, check out these clothes!</div>
                                     <div className={styles['dropdown-container']}>
                                         <Dropdown overlay={FilterMenu} trigger={['click']} className={styles['filter-dropdown']}>
                                             <Button>

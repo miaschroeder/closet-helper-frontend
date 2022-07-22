@@ -28,10 +28,6 @@
     padding-left: 30px;
     background-color: white;
     /* border: 1px solid #000000; */
-}
-
-.nav-first-item {
-    margin-top: 30px;
-    padding-top: 30px;
-    border: 1px solid #000000;
+    /* height: 77.5%; */
+    max-height: 77.5%;
 }

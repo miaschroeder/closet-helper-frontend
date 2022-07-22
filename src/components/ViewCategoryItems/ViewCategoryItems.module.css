@@ -7,10 +7,12 @@
     /* padding: 25px; */
     padding: 5px 0 20px 0;
     /* margin: 20px; */
-    /* border: 1px solid black; */
+    /* border: 1px solid red; */
     margin-left: 1%;
-    /* background-color: #ECE0D8; */
     background-color: white;
+    max-height: 84%;
+    overflow-y: auto;
+    /* box-shadow: inset 0em -1em 0em gold; */
 }
 
 .empty-container {
