@@ -1,18 +1,18 @@
 import { React, useState, useEffect } from 'react';
 import { PropTypes } from 'prop-types';
-import debounce from 'lodash.debounce'
-import { Button, Modal, Form, Input, Radio, Switch, message } from 'antd';
-// import styles from './CreateClothingItemModal.module.css';
+import { Button, Modal, Form, Input, Radio, Switch, message, Divider, Select } from 'antd';
+import styles from './EditClothingItemModal.module.css';
 import CHBackend from '../../common/utils';
 
 const EditClothingItemModal = ({ isOpen, setIsOpen, clothingCategory, itemID, closetUpdated, setClosetUpdated }) => {
     const [itemName, setItemName] = useState(null);
-    const [editingName] = useState(null);
     const [clothingStyle, setClothingStyle] = useState(null)
     const [weatherCategory, setWeatherCategory] = useState(null)
     const [favorite, setFavorite] = useState(null);
 
     const [confirmLoading, setConfirmLoading] = useState(false);
+    const [form] = Form.useForm();
+    const { Option } = Select;
 
     const getItemInfo = async () => {
         // console.log(`api/v1/${clothingCategory}/${itemID}`);
@@ -50,7 +50,7 @@ const EditClothingItemModal = ({ isOpen, setIsOpen, clothingCategory, itemID, cl
             setConfirmLoading(false);
             setClosetUpdated(closetUpdated + 1)
             setIsOpen(false);
-            message.success('Item edited successfully.');
+            message.success(`Item "${itemName}" edited successfully.`);
             console.log('saved item name', itemName);
         } catch (err) {
             console.log('error', err);
@@ -61,84 +61,136 @@ const EditClothingItemModal = ({ isOpen, setIsOpen, clothingCategory, itemID, cl
 
     const handleCancel = () => {
         setIsOpen(false);
-        // resetInputFields();
     };
 
-    const onFinishSuccess = (values) => {
-        console.log('Success:', values);
-      };
+    const handleDelete = async () => {
+        try {
+            setConfirmLoading(true);
+            const item = await CHBackend.delete(`api/v1/${clothingCategory}/${itemID}`);
+            console.log('deleted item', item);
+            setConfirmLoading(false);
+            setClosetUpdated(closetUpdated + 1)
+            setIsOpen(false);
+            message.success(`Item "${itemName}" deleted successfully.`);
+            console.log('saved item name', itemName);
+        } catch (err) {
+            console.log('error', err);
+            setIsOpen(false);
+            message.error('Item deletion failed.');
+        }
+    }
+
     
     const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
+        console.log('Failed:', errorInfo);
     };
 
-    const InputForm = () => {
-        return (
-            <div>
-                <Input
-                    value={itemName}
-                    onChange={(e) => {
-                        console.log('itemName', itemName);
-                        setItemName(e.target.value);}}
-                />
-                <Radio.Group
-                    value={clothingCategory}
-                    disabled={true}
-                >
-                    <Radio value={"tops"}>Tops</Radio>
-                    <Radio value={"bottoms"}>Bottoms</Radio>
-                    <Radio value={"outerwear"}>Outerwear</Radio>
-                </Radio.Group>
-                <Radio.Group
-                    onChange={(e) => {setClothingStyle(e.target.value)}}
-                    value={clothingStyle}
-                >
-                    <Radio.Button value={"casual"}>Casual</Radio.Button>
-                    <Radio.Button value={"business"}>Business</Radio.Button>
-                    <Radio.Button value={"active"}>Active</Radio.Button>
-                </Radio.Group>
-                <Radio.Group
-                    onChange={(e) => {setWeatherCategory(e.target.value)}}
-                    value={weatherCategory}
-                    // defaultValue={"warm"}
-                >
-                    <Radio value={"hot"}>Hot</Radio>
-                    <Radio value={"warm"}>Warm</Radio>
-                    <Radio value={"chilly"}>Chilly</Radio>
-                    <Radio value={"cold"}>Cold</Radio>
-                </Radio.Group>
-                <Switch checked={favorite} onChange={(e) => setFavorite(e)}/>
-            </div>
-        )
-    };
 
     return (
         <Modal
             title="Edit Clothing Item"
             visible={isOpen}
-            footer={[
-                <Button
-                    key="cancel"
-                    type="default"
-                    loading={false}
-                    onClick={handleCancel}
-                >Cancel</Button>,
-                <Button
-                    key="delete"
-                    type="default"
-                    danger
-                >Delete</Button>,
-                <Button
-                    key="create"
-                    type="primary"
-                    loading={confirmLoading}
-                    onClick={handleSave}
-                >Save</Button>
-            ]}
+            closable={true}
+            maskClosable={true}
+            footer={null}
         >
-            {itemName ? (
-                <InputForm />
-            ) : null}
+            <Form
+                name="createItem"
+                form={form}
+                onFinish={handleSave}
+                onFinishFailed={onFinishFailed}
+                initialValues={{
+                    name: itemName,
+                    collection: clothingCategory,
+                    style: clothingStyle,
+                    weather: weatherCategory,
+                    favorite: favorite
+                }}
+            >
+                <Form.Item
+                    label="Name"
+                    name="name"
+                    rules={[
+                        {
+                            required: true,
+                            message: "Make sure to enter a name!",
+                        }
+                    ]}
+                >
+                    <Input
+                        value={itemName}
+                        onChange={(e) => setItemName(e.target.value)}
+                        placeholder="What should we call this item?"
+                    />
+                </Form.Item>
+                <Form.Item
+                    label="Category"
+                    name="collection"
+                    rules={[
+                        {
+                            required: true,
+                            message: "Make sure to pick a clothing category!",
+                        }
+                    ]}
+                >
+                    <Select placeholder="Where should this go in your closet?">
+                        <Option value="tops">Tops</Option>
+                        <Option value="bottoms">Bottoms</Option>
+                        <Option value="outerwear">Outerwear</Option>
+                    </Select>
+                </Form.Item>
+                <Form.Item
+                    label="Style"
+                    name="style"
+                    rules={[
+                        {
+                            required: true,
+                            message: "Make sure to pick a clothing style!",
+                        }
+                    ]}
+                >
+                    <Select placeholder="What kind of adventures is this item made for?">
+                        <Option value="casual">Casual</Option>
+                        <Option value="business">Business</Option>
+                        <Option value="active">Active</Option>
+                    </Select>
+                </Form.Item>
+                <Form.Item
+                    label="Weather"
+                    name="weather"
+                    rules={[
+                        {
+                            required: true,
+                            message: "Make sure to pick a weather category!",
+                        }
+                    ]}
+                >
+                    <Radio.Group
+                        onChange={(e) => {setWeatherCategory(e.target.value)}}
+                        value={weatherCategory}
+                    >
+                        <Radio value={"hot"}>Hot</Radio>
+                        <Radio value={"warm"}>Warm</Radio>
+                        <Radio value={"chilly"}>Chilly</Radio>
+                        <Radio value={"cold"}>Cold</Radio>
+                    </Radio.Group>
+                </Form.Item>
+                <Form.Item label="Favorite" name="favorite">
+                    <Switch checked={favorite} onChange={(e) => setFavorite(e)}/>
+                </Form.Item>
+                <Divider />
+                <div className={styles['modal-footer']}>
+                    <Form.Item className={styles['form-item-cancel']}>
+                        <Button type="default" onClick={() => {handleCancel()}}>Cancel</Button>
+                    </Form.Item>
+                    <Form.Item className={styles['form-item-delete']}>
+                        <Button type="default" danger onClick={() => {handleDelete()}}>Delete</Button>
+                    </Form.Item>
+                    <Form.Item>
+                        <Button type="primary" htmlType="submit">Save</Button>
+                    </Form.Item>
+                </div>
+            </Form>
         </Modal>
     )
 

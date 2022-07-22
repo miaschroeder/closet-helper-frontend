@@ -1,0 +1,23 @@
+
+.modal-footer {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    /* border: 1px solid black; */
+    height: 35px;
+}
+
+.form-item-cancel {
+    /* border: 1px solid black; */
+    /* float: right; */
+    margin-left: 46%;
+    padding-right: 15px;
+}
+
+.form-item-delete {
+    padding-right: 15px;
+}
+
+.style-radio-group {
+    margin-left: 25px;
+}

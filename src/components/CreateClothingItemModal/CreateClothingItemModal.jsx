@@ -6,23 +6,14 @@ import CHBackend from '../../common/utils';
 
 const CreateClothingItemModal = ({ isOpen, setIsOpen, closetUpdated, setClosetUpdated }) => {   
     const [itemName, setItemName] = useState(''); 
-    const [clothingCategory, setClothingCategory] = useState('')
-    const [clothingStyle, setClothingStyle] = useState('')
+    // const [clothingCategory, setClothingCategory] = useState('')
+    // const [clothingStyle, setClothingStyle] = useState('')
     const [weatherCategory, setWeatherCategory] = useState('')
     const [favorite, setFavorite] = useState(false);
     
     const [confirmLoading, setConfirmLoading] = useState(false);
     const [form] = Form.useForm();
     const { Option } = Select;
-
-    // const resetInputFields = () => {
-    //     setItemName('');
-    //     setClothingCategory('');
-    //     setClothingStyle('');
-    //     setWeatherCategory('');
-    //     setFavorite(false);
-    //     // console.log(itemName);
-    // }
     
     const handleCreate = async ( formValues ) => {
         try {
@@ -58,9 +49,6 @@ const CreateClothingItemModal = ({ isOpen, setIsOpen, closetUpdated, setClosetUp
         setFavorite(false);
     };
 
-    // const onFinishSuccess = async (itemValues) => {
-    //     console.log('Success:', values);
-    //   };
     
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
@@ -72,26 +60,6 @@ const CreateClothingItemModal = ({ isOpen, setIsOpen, closetUpdated, setClosetUp
             visible={isOpen}
             closable={true}
             maskClosable={true}
-            // onOk={handleCreate}
-            // onCancel={handleCancel}
-            // style={{
-            //     backgroundColor: 'white',
-            // }}
-            // footer={[
-            //     <Button
-            //     key="cancel"
-            //     type="default"
-            //     loading={false}
-            //     onClick={handleCancel}
-            //     >Cancel</Button>,
-            //     <Button
-            //         key="create"
-            //         type="primary"
-            //         htmlType="submit"
-            //         loading={confirmLoading}
-            //         onClick={handleCreate}
-            //     >Create</Button>,
-            // ]}
             footer={null}
         >
             <Form
@@ -126,15 +94,6 @@ const CreateClothingItemModal = ({ isOpen, setIsOpen, closetUpdated, setClosetUp
                         }
                     ]}
                 >
-                    {/* <Radio.Group
-                        onChange={(e) => {setClothingCategory(e.target.value)}}
-                        value={clothingCategory}
-                        // defaultValue={"tops"}
-                    >
-                        <Radio value={"tops"}>Tops</Radio>
-                        <Radio value={"bottoms"}>Bottoms</Radio>
-                        <Radio value={"outerwear"}>Outerwear</Radio>
-                    </Radio.Group> */}
                     <Select placeholder="Where should this go in your closet?">
                         <Option value="tops">Tops</Option>
                         <Option value="bottoms">Bottoms</Option>
@@ -151,16 +110,6 @@ const CreateClothingItemModal = ({ isOpen, setIsOpen, closetUpdated, setClosetUp
                         }
                     ]}
                 >
-                    {/* <Radio.Group
-                        onChange={(e) => {setClothingStyle(e.target.value)}}
-                        value={clothingStyle}
-                        className={styles['style-radio-group']}
-                        // defaultValue={"casual"}
-                    >
-                        <Radio value={"casual"}>Casual</Radio>
-                        <Radio value={"business"}>Business</Radio>
-                        <Radio value={"active"}>Active</Radio>
-                    </Radio.Group> */}
                     <Select placeholder="What kind of adventures is this item made for?">
                         <Option value="casual">Casual</Option>
                         <Option value="business">Business</Option>
@@ -180,7 +129,6 @@ const CreateClothingItemModal = ({ isOpen, setIsOpen, closetUpdated, setClosetUp
                     <Radio.Group
                         onChange={(e) => {setWeatherCategory(e.target.value)}}
                         value={weatherCategory}
-                        // defaultValue={"warm"}
                     >
                         <Radio value={"hot"}>Hot</Radio>
                         <Radio value={"warm"}>Warm</Radio>
