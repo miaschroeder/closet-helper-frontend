@@ -5,7 +5,7 @@ This application implements the frontend functionality of Closet Helper, a web a
 [Backend Repository Here](https://github.com/miaschroeder/closet-helper-backend)
 
 ## Product Demo Images
-![Home page displaying items for the day's weather with a casual style, sorted by favorites.](/public/product-images/HomePageCasualFavorites.png)
+![Home page displaying items for the day's weather with a casual style, sorted by favorites.](https://github.com/miaschroeder/closet-helper-frontend/public/product-images/HomePageCasualFavorites.png)
 
 ## How It Works
 Built with React, AntDesign, and CSS, the frontend of Closet Helper creates the user interface for users to input and edit their clothing items, facilitate favoriting, filtering, and sorting of clothing articles, and displays item recommendations to the user.
